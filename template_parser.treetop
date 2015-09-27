@@ -1,0 +1,29 @@
+grammar Template
+	rule body
+		(variable / options / normal / space)* <Body>
+	end
+
+	rule options
+		'{' (space? option)+ '}' <Options>
+	end
+
+	rule option
+		label body <Option>
+	end
+
+	rule label
+		'|' normal '>' <Label>
+	end
+
+	rule variable
+		'<<' normal '>>' <Variable>
+	end
+
+	rule normal
+		[a-zA-Z ,\.\-_()]+ <NormalText>
+	end
+
+	rule space
+		[\s]+
+	end
+end
