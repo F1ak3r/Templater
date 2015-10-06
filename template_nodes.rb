@@ -3,6 +3,9 @@ module Template
 		def value
 			self.elements.map {|x| x.value }
 		end
+		def test
+			"testertest"
+		end
 	end
 
 	class Options < Treetop::Runtime::SyntaxNode

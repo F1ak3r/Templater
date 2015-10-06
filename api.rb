@@ -2,17 +2,17 @@ require 'sinatra'
 require_relative 'parser'
 require_relative 'compiler'
 
-$tree = Parser::Parser.parse('This is a <<test>> of {|a> the |b> syntax |c> stuff }for this thing')
+$tree = Parser::Parser.parse('<<value>> This {t<test>t} {{|thing> <<is>> an {{|nested> (stuff) <<and>> things}} |other> option }} test.')
 
 get '/edit-test' do
-	options = Compiler::Compiler.get_options($tree)
-
-	"<p contentEditable='true'>" + options.to_s
+	"<p contentEditable='true'>#{Rack::Utils.escape_html($tree.test)}</p>"
 end
 
 get '/submit-test' do
-	Rack::Utils.escape_html(Compiler::Compiler.compile($tree, { :variables => {:test => "blahblah"},
-																														  :options => ["c"] }
-																										).to_s
-												 )
+	compiled = Compiler::Compiler.compile(tree, { :variables => { :is => "are",
+																													:and => "'n'",
+																													:value => "blahblah" },
+																					:options => ["thing","nested"] }
+																 ).gsub(/\s+/, ' ') #reduce all spaces down to just one
+	Rack::Utils.escape_html(compiled)
 end

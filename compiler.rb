@@ -28,21 +28,19 @@ module Compiler
 		end
 
 		def self.get_options(tree)
-			options = { :variables => [], :options => [] } 
-
+			options = { :variables => Array.new, :options => Array.new }
 			for e in tree
 				case e
+					when Array
+						options + self.get_options(e)
 					when Symbol
-						options[:variables] << e
+						options << e
 					when Hash
-						options[:options].concat e.keys
-					else
-						next
+						options + e.keys.to_a
+						e.each { |x| options += self.get_options(x) }
 				end 
 			end
-
 			options
 		end
-
 	end
 end

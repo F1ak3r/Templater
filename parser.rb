@@ -19,15 +19,5 @@ module Parser
 
 			tree.value
 		end
-
 	end
-
-	tree = Parser.parse('<<value>> This {t<test>t} {{|thing> <<is>> an {{|nested> (stuff) <<and>> things}} |other> option }} test.')
-	puts tree
-	require_relative 'compiler'
-	puts Compiler::Compiler.compile(tree, { :variables => { :is => "are",
-																													:and => "'n'",
-																													:value => "blahblah" },
-																					:options => ["thing","nested"] }
-																 ).gsub(/\s+/, ' ') #reduce all spaces down to just one
 end
