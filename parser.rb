@@ -22,7 +22,7 @@ module Parser
 
 	end
 
-	tree = Parser.parse('<<value>> This {|thing> <<is>> an {|nested> stuff <<and>> things} |other> option } test.')
+	tree = Parser.parse('<<value>> This {t<test>t} {{|thing> <<is>> an {{|nested> (stuff) <<and>> things}} |other> option }} test.')
 	puts tree
 	require_relative 'compiler'
 	puts Compiler::Compiler.compile(tree, { :variables => { :is => "are",

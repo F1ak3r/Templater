@@ -1,10 +1,10 @@
 grammar Template
 	rule body
-		(variable / options / normal / space)* <Body>
+		(specials / variable / options / normal / space)* <Body>
 	end
 
 	rule options
-		'{' (space? option)+ '}' <Options>
+		'{{' (space? option)+ '}}' <Options>
 	end
 
 	rule option
@@ -20,7 +20,27 @@ grammar Template
 	end
 
 	rule normal
-		[a-zA-Z ,\.\-_()]+ <NormalText>
+		[^{}|<>]+ <NormalText>
+	end
+
+	rule specials
+		opencurly / closecurly / openangle / closeangle 
+	end
+
+	rule opencurly
+		'{' !'{' <SpecialText>
+	end
+
+	rule closecurly
+		'}' !'}' <SpecialText>
+	end
+
+	rule openangle
+		'<' !'<' <SpecialText>
+	end
+
+	rule closeangle
+		'>' !'>' <SpecialText>
 	end
 
 	rule space

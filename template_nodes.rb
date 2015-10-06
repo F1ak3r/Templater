@@ -35,4 +35,10 @@ module Template
 		end
 	end
 
+	class SpecialText < Treetop::Runtime::SyntaxNode
+		def value
+			self.text_value
+		end
+	end
+
 end
