@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<head>
+	<title>Templater</title>
+</head>
+<body>
+	<% $tree = Parser::Parser.parse("Testing revealed that this web application returned verbose error messages that revealed information about the <<thing>>. {{|normalinteraction> Some of the errors encountered were the result of unexpected user input, however, others were encountered during normal interactions with the web application |unexpectedinput> Verbose error messages were primarily the result of the submission of unexpected user input}}. The information in these messages could be used by an attacker to develop targeted attacks against the application.")
+		options = Compiler::Compiler.get_options($tree) %>
+	<p id="writeup" contentEditable='true'><%=Rack::Utils.escape_html(Compiler::Compiler.compile($tree))%></p>
+	<form>
+	<% options[:options].each do |opt| %>
+		<input checked='true' type='checkbox' onclick='reloadWriteup()' name='option_<%=Rack::Utils.escape_html(opt)%>' ><%=Rack::Utils.escape_html(opt)%></input><br/>
+	<% end %>
+	<% options[:variables].each do |k,v| %>
+		<%=Rack::Utils.escape_html(k)%>: <input type='text' oninput='reloadWriteup()' name='variable_<%=Rack::Utils.escape_html(k)%>' value='<%=Rack::Utils.escape_html(v)%>'></input><br/>
+	<% end %>
+	</form>
+	<script>
+		function reloadWriteup() {
+			var xhttp = new XMLHttpRequest();
+			xhttp.onreadystatechange = function() {
+				document.getElementById("writeup").innerHTML = xhttp.responseText;
+			}
+			xhttp.open("POST", "submit-test", true);
+			var form = document.querySelector('form')
+			xhttp.send(new FormData(form));
+		}
+	</script>
+</body>

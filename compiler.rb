@@ -2,7 +2,8 @@ module Compiler
 	require 'set'
 
 	class Compiler
-		def self.compile(tree, options)
+		def self.compile(tree, options=nil)
+			options ||= self.get_options(tree) #get default options hash if undefined
 			flattened = self.traverse(tree, options)
 
 			flattened.join
@@ -28,16 +29,22 @@ module Compiler
 		end
 
 		def self.get_options(tree)
-			options = { :variables => Array.new, :options => Array.new }
+			options = { :variables => Hash.new, :options => Array.new }
 			for e in tree
 				case e
 					when Array
-						options + self.get_options(e)
+						inner_opts = self.get_options(e)
+						options[:variables].merge! inner_opts[:variables]
+						options[:options] += inner_opts[:options]
 					when Symbol
-						options << e
+						options[:variables].merge!({ e => e.to_s.upcase })
 					when Hash
-						options + e.keys.to_a
-						e.each { |x| options += self.get_options(x) }
+						options[:options] += e.keys
+						e.each do |x|
+							inner_opts = self.get_options(x)
+							options[:variables].merge! inner_opts[:variables]
+							options[:options] += inner_opts[:options]
+						end
 				end 
 			end
 			options
