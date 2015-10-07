@@ -1,12 +1,18 @@
 <!DOCTYPE html>
 <head>
 	<title>Templater</title>
+	<link rel="stylesheet" type="text/css" href="/style.css">
 </head>
 <body>
-	<% $tree = Parser::Parser.parse("Testing revealed that this web application returned verbose error messages that revealed information about the <<thing>>. {{|normalinteraction> Some of the errors encountered were the result of unexpected user input, however, others were encountered during normal interactions with the web application |unexpectedinput> Verbose error messages were primarily the result of the submission of unexpected user input}}. The information in these messages could be used by an attacker to develop targeted attacks against the application.")
+	<% $tree = Parser::Parser.parse("Testing revealed that this web application returned verbose error messages that revealed information about the <<thing>>. {{|normalinteraction> Some of the errors encountered were the result of unexpected user input, however, others were encountered during normal interactions with the web application |unexpectedinput> Verbose error messages were primarily the result of the submission of unexpected user input.}} The information in these messages could be used by an attacker to develop targeted attacks against the application.")
 		options = Compiler::Compiler.get_options($tree) %>
-	<p id="writeup" contentEditable='true'><%=Rack::Utils.escape_html(Compiler::Compiler.compile($tree))%></p>
-	<form>
+	<div id="header">
+		<h1>Templater</h1>
+	</div>
+	<div>
+		<p id="writeup" contentEditable='true'><%=Rack::Utils.escape_html(Compiler::Compiler.compile($tree))%></p>
+	</div>
+	<form id="options">
 	<% options[:options].each do |opt| %>
 		<input checked='true' type='checkbox' onclick='reloadWriteup()' name='option_<%=Rack::Utils.escape_html(opt)%>' ><%=Rack::Utils.escape_html(opt)%></input><br/>
 	<% end %>

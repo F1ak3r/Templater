@@ -11,8 +11,8 @@ def build_options(params)
 	options
 end
 
-get '/styles' do
-	css :style
+get '/style.css' do
+	scss :style
 end
 
 get '/' do
