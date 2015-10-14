@@ -8,12 +8,12 @@ set :sessions, secret: "change_me",
 	
 
 def build_choices(params)
-	options = { :variables => Hash.new, :options => Array.new }
+	choices = { :variables => Hash.new, :options => Array.new }
 	params.each do |k,v|
-		options[:options] << k.split('_').drop(1).join if k =~ /^option_.*/
-		options[:variables][k.split('_').drop(1).join.to_sym] = v if k =~ /^variable_.*/
+		choices[:options] << v.split('_').drop(1).join if v =~ /^option_.*/
+		choices[:variables][k.split('_').drop(1).join.to_sym] = v if k =~ /^variable_.*/
 	end
-	options
+	choices
 end
 
 get '/style.css' do

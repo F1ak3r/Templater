@@ -18,7 +18,7 @@ module Compiler
 				when Symbol
 					flattened << options[:variables][e] if options[:variables].has_key? e
 				when Hash
-					key = (options[:options].to_set.intersection(e.keys)).to_a[0]
+					key = (options[:options].flatten.to_set.intersection(e.keys)).to_a[0]
 					value = traverse(e[key], options) unless key.nil?
 					flattened << value
 				else
@@ -39,7 +39,7 @@ module Compiler
 				when Symbol
 					options[:variables].merge!({ e => e.to_s.upcase })
 				when Hash
-					options[:options] += e.keys
+					options[:options] << e.keys.to_a
 					e.each do |x|
 						inner_opts = get_options(x)
 						options[:variables].merge! inner_opts[:variables]

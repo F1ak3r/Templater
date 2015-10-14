@@ -10,8 +10,9 @@
       %p#writeup{:contenteditable => "true"}= Rack::Utils.escape_html(Compiler.compile(session[:tree]))
     %form#options
       - session[:opts][:options].each do |opt|
-        %input{:checked => "true", :name => "option_#{Rack::Utils.escape_html(opt)}", :onclick => "reloadWriteup()", :type => "checkbox"}/
-        = Rack::Utils.escape_html(opt)
+        - opt.each do |rb|
+          %input{:checked => "true", :name => "option_#{Rack::Utils.escape_html(opt.join)}", :value => "option_#{Rack::Utils.escape_html(rb)}",:onclick => "reloadWriteup()", :type => "radio"}/
+          = Rack::Utils.escape_html(rb)
         %br/
       - session[:opts][:variables].each do |k,v|
         = Rack::Utils.escape_html(k)
