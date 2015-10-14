@@ -39,7 +39,8 @@ module Compiler
 				when Symbol
 					options[:variables].merge!({ e => e.to_s.upcase })
 				when Hash
-					options[:options] << e.keys.to_a
+					diff = e.keys.to_set.difference(options[:options].flatten).to_a
+					options[:options] << diff unless diff.empty?
 					e.each do |x|
 						inner_opts = get_options(x)
 						options[:variables].merge! inner_opts[:variables]
