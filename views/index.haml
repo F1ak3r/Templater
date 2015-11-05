@@ -7,7 +7,7 @@
     #header
       %h1 Templater
     %div
-      %p#writeup{:contenteditable => "true"}= Rack::Utils.escape_html(Compiler.compile(session[:tree]))
+      %p#writeup{:contenteditable => "true"}= Rack::Utils.escape_html(Compiler.compile(session[:tree])).gsub(/\n/,"<br>")
     %form#options
       - session[:opts][:options].each do |opt|
         - opt.each do |rb|

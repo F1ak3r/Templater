@@ -27,7 +27,7 @@ get '/' do
 end
 
 post '/submit' do
-	compiled = Compiler.compile(session[:tree], build_choices(params)).gsub(/\s+/, ' ') #reduce all spaces down to just one
+	compiled = Compiler.compile(session[:tree], build_choices(params))#.gsub(/\s+/, ' ') #reduce all spaces down to just one
 	Rack::Utils.escape_html(compiled)
 end
 

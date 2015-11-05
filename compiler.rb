@@ -10,22 +10,20 @@ module Compiler
 	end
 
 	def traverse(tree, options)
-		flattened = Array.new
-		for e in tree
+		tree.collect do |e|
 			case e
 				when Array
-					flattened << traverse(e,options)
+					traverse(e,options)
 				when Symbol
-					flattened << options[:variables][e] if options[:variables].has_key? e
+					options[:variables][e] if options[:variables].has_key? e
 				when Hash
 					key = (options[:options].flatten.to_set.intersection(e.keys)).to_a[0]
 					value = traverse(e[key], options) unless key.nil?
-					flattened << value
+					value
 				else
-					flattened << e
+					e
 			end 
 		end
-		flattened
 	end
 
 	def get_options(tree)
