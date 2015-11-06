@@ -24,7 +24,7 @@ grammar Template
 	end
 
 	rule specials
-		opencurly / closecurly / openangle / closeangle 
+		opencurly / closecurly / openangle / closeangle / newline 
 	end
 
 	rule opencurly
@@ -41,6 +41,10 @@ grammar Template
 
 	rule closeangle
 		'>' !'>' <SpecialText>
+	end
+
+	rule newline
+		"\n" <SpecialText>
 	end
 
 	rule space

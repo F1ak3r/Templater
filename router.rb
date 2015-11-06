@@ -6,9 +6,9 @@ require_relative 'compiler'
 set :sessions, secret: "change_me",
 	httponly: true
 	
-
+# Helper function for creating choice hashes for template compilation
 def build_choices(params)
-	choices = { :variables => Hash.new, :options => Array.new }
+	choices = { variables: Hash.new, options: Array.new }
 	params.each do |k,v|
 		choices[:options] << v.split('_').drop(1).join if v =~ /^option_.*/
 		choices[:variables][k.split('_').drop(1).join.to_sym] = v if k =~ /^variable_.*/
@@ -16,21 +16,25 @@ def build_choices(params)
 	choices
 end
 
+# Serve CSS
 get '/style.css' do
 	scss :style
 end
 
+# Main page
 get '/' do
-	session[:tree] ||= Parser.parse("Here is some normal text. This is a <<variable>> for an insertion point. Include the same label in multiple places to save labour.\n\n{{|stuff> You can choose |otherstuff> One of these |yetotherstuff> Or you can leave the whole section out. {{|nested1> You can also <<nest>> elements. |nested2> Super rad! }} }}")
+	session[:tree] ||= Parser.parse(File.read("example.template"))
   session[:opts] = Compiler.get_options(session[:tree])
 	haml :index
 end
 
+# Compile template with options
 post '/submit' do
-	compiled = Compiler.compile(session[:tree], build_choices(params))#.gsub(/\s+/, ' ') #reduce all spaces down to just one
-	Rack::Utils.escape_html(compiled)
+	compiled = Compiler.compile(session[:tree], build_choices(params))
+	Rack::Utils.escape_html(compiled).gsub(/\n/,"<br>")
 end
 
+# Upload template
 post '/upload' do
 	if params[:file]
 		tempfile = params[:file][:tempfile]

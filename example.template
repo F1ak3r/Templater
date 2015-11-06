@@ -1,0 +1,5 @@
+Here is some normal text. This is a <<variable>> for an insertion point. Include the same <<variable>> in multiple places to save labour.
+
+{{|stuff> You can choose |otherstuff> One of these |yetotherstuff> Or you can leave the whole section out. {{|nested1> You can also <<nest>> elements. |nested2> Super rad! }} }}
+
+{{|stuff> Include the same sets of options |otherstuff> In different sets |yetotherstuff> In order to vary text in multiple places with a single choice. }}

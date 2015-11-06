@@ -27,7 +27,7 @@ module Compiler
 	end
 
 	def get_options(tree)
-		options = { :variables => Hash.new, :options => Array.new }
+		options = { variables: Hash.new, options: Array.new }
 		for e in tree
 			case e
 				when Array
