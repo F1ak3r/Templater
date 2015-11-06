@@ -4,12 +4,13 @@ A simple syntax and web front-end for generating and modifying write-up template
 
 ##How to use
 
-1. Grab it with `git clone https://github.com/F1ak3r/Templater.git`, install dependencies with `bundle install` and start the server with `ruby router.rb`.
-2. Navigate to `localhost:4567` in your browser. You should see this:
+**Step 1**: Grab it with `git clone https://github.com/F1ak3r/Templater.git`, install dependencies with `bundle install` and start the server with `ruby router.rb`.
 
-![Templater]()
+**Step 2**: Then navigate to `localhost:4567` in your browser. You should see this:
 
-3. Write a template in your favourite text editor.
+![Templater](https://github.com/F1ak3r/Templater/raw/master/img/templater.png)
+
+**Step 3**: Write a template in your favourite text editor.
 
 How to write a template:
 
@@ -19,9 +20,11 @@ How to write a template:
 
 >{{|stuff> Include the same sets of options |otherstuff> In different sets |yetotherstuff> In order to vary text in multiple places with a single choice. }}
 
-4. Save your template to disk and use the upload button to load it into Templater.
-5. Play around with it: change options, enter text for variables.
-6. Copy-paste the resulting final text to wherever you need it to be.
+**Step 4**: Save your template to disk and use the upload button to load it into Templater.
+
+**Step 5**: Play around with it: change options, enter text for variables.
+
+**Step 6**: Finally, copy-paste the resulting text to wherever you need it to be.
 
 ##Why this exists
 
