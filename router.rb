@@ -1,8 +1,11 @@
+# The router defines the behaviour of Templater's web frontend
+
 require 'sinatra'
 require 'haml'
 require_relative 'parser'
 require_relative 'compiler'
 
+# Use the session cookie to store user-given templates and configurations
 set :sessions, secret: "change_me",
   httponly: true
 

@@ -1,7 +1,9 @@
+# This file defines the grammar, and template_nodes.rb defines the behaviour for the various parts
+
 module Template
   class Body < Treetop::Runtime::SyntaxNode
     def value
-      self.elements.map {|x| x.value }
+      self.elements.map { |x| x.value }
     end
   end
 
@@ -19,7 +21,7 @@ module Template
 
   class Label < Treetop::Runtime::SyntaxNode
     def value
-      self.text_value.tr('|>','')
+      self.text_value.tr '|>',''
     end
   end
 

@@ -1,3 +1,5 @@
+# The parser uses the grammar and behaviour definitions to actually parse some input
+
 module Parser
   require 'treetop'
   require 'json'
@@ -9,10 +11,12 @@ module Parser
   @@parser = TemplateParser.new
 
   module_function
-  def parse(data)
-    tree = @@parser.parse(data)
 
-    if (tree.nil?)
+  # Parse the given template source text and output tree
+  def parse(data)
+    tree = @@parser.parse data
+
+    if tree.nil?
       raise Exception, "Parse error at offset: #{@@parser.index}\nThe parser says: #{@@parser.failure_reason}"
     end
 

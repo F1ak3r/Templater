@@ -1,5 +1,7 @@
+# This file defines the grammar, and template_nodes.rb defines the behaviour for the various parts
+
 grammar Template
-  rule body
+  rule body #specials need to come first so their material doesn't get consumed elsewhere
     (specials / variable / options / normal / space)* <Body>
   end
 
