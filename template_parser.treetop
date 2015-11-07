@@ -1,53 +1,53 @@
 grammar Template
-	rule body
-		(specials / variable / options / normal / space)* <Body>
-	end
+  rule body
+    (specials / variable / options / normal / space)* <Body>
+  end
 
-	rule options
-		'{{' (space? option)+ '}}' <Options>
-	end
+  rule options
+    '{{' (space? option)+ '}}' <Options>
+  end
 
-	rule option
-		label body <Option>
-	end
+  rule option
+    label body <Option>
+  end
 
-	rule label
-		'|' normal '>' <Label>
-	end
+  rule label
+    '|' normal '>' <Label>
+  end
 
-	rule variable
-		'<<' normal '>>' <Variable>
-	end
+  rule variable
+    '<<' normal '>>' <Variable>
+  end
 
-	rule normal
-		[^{}|<>]+ <NormalText>
-	end
+  rule normal
+    [^{}|<>]+ <NormalText>
+  end
 
-	rule specials
-		opencurly / closecurly / openangle / closeangle / newline 
-	end
+  rule specials
+    opencurly / closecurly / openangle / closeangle / newline 
+  end
 
-	rule opencurly
-		'{' !'{' <SpecialText>
-	end
+  rule opencurly
+    '{' !'{' <SpecialText>
+  end
 
-	rule closecurly
-		'}' !'}' <SpecialText>
-	end
+  rule closecurly
+    '}' !'}' <SpecialText>
+  end
 
-	rule openangle
-		'<' !'<' <SpecialText>
-	end
+  rule openangle
+    '<' !'<' <SpecialText>
+  end
 
-	rule closeangle
-		'>' !'>' <SpecialText>
-	end
+  rule closeangle
+    '>' !'>' <SpecialText>
+  end
 
-	rule newline
-		"\n" <SpecialText>
-	end
+  rule newline
+    "\n" <SpecialText>
+  end
 
-	rule space
-		[\s]+
-	end
+  rule space
+    [\s]+
+  end
 end
