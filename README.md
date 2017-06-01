@@ -1,8 +1,8 @@
-#Template Engine
+# Template Engine
 
 A simple syntax and web front-end for generating and modifying write-up templates. Usable, but not thoroughly tested and could probably stand to have a few more features.
 
-##How to use
+## How to use
 
 **Step 1**: Grab it with `git clone https://github.com/F1ak3r/Templater.git`, install dependencies with `bundle install` and start the server with `ruby router.rb`.
 
@@ -26,13 +26,13 @@ How to write a template:
 
 **Step 6**: Finally, copy-paste the resulting text to wherever you need it to be.
 
-##Why this exists
+## Why this exists
 
 Templater is an experiment in developing a graphical interface for quick and painless manipulation of mostly standard passages with minor variations and some dynamic content. Also I wanted to write a parser.
 
 I don't really know whether it's going to prove particularly useful or not, but I had fun making it.
 
-##Acknowledgements
+## Acknowledgements
 
 Uses [Treetop](http://treetop.rubyforge.org/) for parsing and [Sinatra](http://www.sinatrarb.com/) for web stuffs.
 
